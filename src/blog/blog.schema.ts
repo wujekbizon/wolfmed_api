@@ -13,12 +13,4 @@ export const blogPosts = pgTable('blog_posts', {
   updatedAt: timestamp('updatedAt'),
 });
 
-export interface Post {
-  id: string;
-  title: string;
-  date: string;
-  excerpt: string;
-  content: string;
-  createdAt?: Date;
-  updatedAt?: Date | null;
-}
+export type Post = typeof blogPosts.$inferSelect;

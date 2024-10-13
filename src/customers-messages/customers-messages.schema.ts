@@ -11,15 +11,5 @@ export const customersMessages = pgTable('customers_messages', {
   updatedAt: timestamp('updatedAt'),
 });
 
-export interface CustomerMessage {
-  id: number;
-  email: string;
-  message: string;
-  createdAt: Date;
-  updatedAt?: Date | null;
-}
-
-export type NewCustomerMessage = Omit<
-  CustomerMessage,
-  'id' | 'createdAt' | 'updatedAt'
->;
+export type CustomerMessage = typeof customersMessages.$inferSelect;
+export type NewCustomerMessage = typeof customersMessages.$inferInsert;

@@ -3,6 +3,7 @@ import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import {
   customersMessages,
   CustomerMessage,
+  NewCustomerMessage,
 } from './customers-messages.schema';
 import { eq, and } from 'drizzle-orm';
 import { CreateMessageDto } from './dto/create-message.dto';
@@ -24,7 +25,7 @@ export class CustomersMessagesService {
 
   async createMessage(
     createMessageDto: CreateMessageDto,
-  ): Promise<CustomerMessage> {
+  ): Promise<NewCustomerMessage> {
     const [createdMessage] = await this.db
       .insert(customersMessages)
       .values(createMessageDto)

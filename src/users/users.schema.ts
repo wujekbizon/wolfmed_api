@@ -19,12 +19,5 @@ export const users = pgTable('users', {
   updatedAt: timestamp('updatedAt'),
 });
 
-export type User = {
-  userId: string;
-  username?: string;
-  motto?: string;
-  testLimit?: number;
-  createdAt?: Date;
-  supporter?: boolean;
-  updatedAt?: Date;
-};
+export type User = typeof users.$inferSelect;
+export type NewUser = typeof users.$inferInsert;

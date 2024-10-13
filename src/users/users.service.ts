@@ -5,7 +5,7 @@ import {
   ConflictException,
 } from '@nestjs/common';
 import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
-import { users, User } from './users.schema';
+import { users, NewUser, User } from './users.schema';
 import { eq } from 'drizzle-orm';
 import { CreateUserDto } from './dto/create-user.dto';
 
@@ -26,7 +26,7 @@ export class UsersService {
     return result[0];
   }
 
-  async createUser(createUserDto: CreateUserDto): Promise<User> {
+  async createUser(createUserDto: CreateUserDto): Promise<NewUser> {
     const existingUser = await this.getUserById(createUserDto.userId).catch(
       () => null,
     );
@@ -36,7 +36,7 @@ export class UsersService {
       );
     }
 
-    const newUser: User = {
+    const newUser = {
       userId: createUserDto.userId,
       username: createUserDto.username || '',
       motto: createUserDto.motto || '',
@@ -61,7 +61,7 @@ export class UsersService {
     }
   }
 
-  async handleClerkWebhook(webhookData: any): Promise<User> {
+  async handleClerkWebhook(webhookData: any): Promise<NewUser> {
     const userId = webhookData.data.id;
     const username = webhookData.data.username;
 
