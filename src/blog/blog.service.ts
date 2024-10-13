@@ -1,7 +1,8 @@
 import { Injectable, Inject, NotFoundException } from '@nestjs/common';
 import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
-import { blogPosts, Post } from './blog.schema';
+import { blogPosts } from './blog.schema';
 import { eq } from 'drizzle-orm';
+import type { Post } from 'src/schema';
 
 @Injectable()
 export class BlogService {

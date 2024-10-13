@@ -35,12 +35,12 @@ export const tests = pgTable('tests', {
   updatedAt: timestamp('updatedAt'),
 });
 
-export interface Answer {
+interface Answer {
   option: string;
   isCorrect: boolean;
 }
 
-export interface TestData {
+interface TestData {
   question: string;
   answers: Answer[];
 }
@@ -105,7 +105,7 @@ export const completedTests = pgTable('completed_tests', {
     .notNull(),
 });
 
-export type FormattedAnswer = { questionId: string; answer: boolean };
+type FormattedAnswer = { questionId: string; answer: boolean };
 
 export interface CompletedTest {
   id: string;

@@ -1,30 +1,5 @@
-import { sql } from 'drizzle-orm';
-import { pgTable, uuid, jsonb, timestamp } from 'drizzle-orm/pg-core';
+import { procedures as proceduresSchema } from '../schema';
 
-export const procedures = pgTable('procedures', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  data: jsonb('data').notNull(),
-  createdAt: timestamp('createdAt')
-    .default(sql`CURRENT_TIMESTAMP`)
-    .notNull(),
-  updatedAt: timestamp('updatedAt'),
-});
-
-export type Step = {
-  step: string;
-};
-
-export interface ProcedureData {
-  name: string;
-  procedure: string;
-  algorithm: Step[];
-}
-
-export interface Procedure {
-  id: string;
-  data: ProcedureData;
-  createdAt?: Date;
-  updatedAt?: Date | null;
-}
-
-export type ExtendedProcedure = Omit<Procedure, 'data'> & { data: unknown };
+// Import the table definition from the centralized schema.ts file
+// to allow for drizzle-kit migrations while maintaining Nest.js module structure
+export const procedures = proceduresSchema;

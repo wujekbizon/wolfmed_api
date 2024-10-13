@@ -1,12 +1,9 @@
 import { Injectable, Inject, NotFoundException } from '@nestjs/common';
 import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
-import {
-  customersMessages,
-  CustomerMessage,
-  NewCustomerMessage,
-} from './customers-messages.schema';
+import { customersMessages } from './customers-messages.schema';
 import { eq, and } from 'drizzle-orm';
 import { CreateMessageDto } from './dto/create-message.dto';
+import { CustomerMessage, NewCustomerMessage } from 'src/schema';
 
 @Injectable()
 export class CustomersMessagesService {

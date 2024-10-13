@@ -5,9 +5,10 @@ import {
   ConflictException,
 } from '@nestjs/common';
 import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
-import { users, NewUser, User } from './users.schema';
+import { users } from './users.schema';
 import { eq } from 'drizzle-orm';
 import { CreateUserDto } from './dto/create-user.dto';
+import { NewUser, User } from 'src/schema';
 
 @Injectable()
 export class UsersService {

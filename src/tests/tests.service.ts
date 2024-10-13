@@ -1,7 +1,8 @@
 import { Injectable, Inject, NotFoundException } from '@nestjs/common';
 import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
-import { tests, Test, ExtendedTest } from './tests.schema';
+import { tests } from './tests.schema';
 import { eq } from 'drizzle-orm';
+import { ExtendedTest } from 'src/schema';
 
 @Injectable()
 export class TestsService {

@@ -1,32 +1,5 @@
-import { sql } from 'drizzle-orm';
-import { pgTable, uuid, varchar, jsonb, timestamp } from 'drizzle-orm/pg-core';
+import { tests as testsSchema } from '../schema';
 
-export const tests = pgTable('tests', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  category: varchar('category', { length: 256 }).notNull(),
-  data: jsonb('data').notNull(),
-  createdAt: timestamp('createdAt')
-    .default(sql`CURRENT_TIMESTAMP`)
-    .notNull(),
-  updatedAt: timestamp('updatedAt'),
-});
-
-export interface Answer {
-  option: string;
-  isCorrect: boolean;
-}
-
-export interface TestData {
-  question: string;
-  answers: Answer[];
-}
-
-export interface Test {
-  id: string;
-  data: TestData;
-  category: string;
-  createdAt?: Date;
-  updatedAt?: Date | null;
-}
-
-export type ExtendedTest = Omit<Test, 'data'> & { data: unknown };
+// Import the table definition from the centralized schema.ts file
+// to allow for drizzle-kit migrations while maintaining Nest.js module structure
+export const tests = testsSchema;
