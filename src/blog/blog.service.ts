@@ -3,6 +3,7 @@ import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import { blogPosts } from './blog.schema';
 import { eq } from 'drizzle-orm';
 import type { Post } from 'src/schema';
+import { PostDto } from './dto/post.dto';
 
 @Injectable()
 export class BlogService {
@@ -23,5 +24,28 @@ export class BlogService {
     }
 
     return result[0];
+  }
+
+  async createPost(createPostDto: PostDto): Promise<Post> {
+    const [post] = await this.db
+      .insert(blogPosts)
+      .values(createPostDto)
+      .returning();
+
+    return post;
+  }
+
+  async updatePostById(id: string, updatePostDto: PostDto): Promise<Post> {
+    const [post] = await this.db
+      .update(blogPosts)
+      .set(updatePostDto)
+      .where(eq(blogPosts.id, id))
+      .returning();
+
+    return post;
+  }
+
+  async deletePostById(id: string): Promise<void> {
+    await this.db.delete(blogPosts).where(eq(blogPosts.id, id));
   }
 }

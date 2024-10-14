@@ -13,11 +13,11 @@ export class CustomersMessagesService {
     return this.db.select().from(customersMessages);
   }
 
-  async getMessagesByUser(email: string): Promise<CustomerMessage[]> {
+  async getMessagesById(id: string): Promise<CustomerMessage[]> {
     return this.db
       .select()
       .from(customersMessages)
-      .where(eq(customersMessages.email, email));
+      .where(eq(customersMessages.id, parseInt(id)));
   }
 
   async createMessage(
@@ -30,18 +30,14 @@ export class CustomersMessagesService {
     return createdMessage;
   }
 
-  async deleteMessageByUser(email: string, id: number): Promise<void> {
+  async deleteMessageById(id: number): Promise<void> {
     const result = await this.db
       .delete(customersMessages)
-      .where(
-        and(eq(customersMessages.email, email), eq(customersMessages.id, id)),
-      )
+      .where(eq(customersMessages.id, id))
       .returning();
 
     if (result.length === 0) {
-      throw new NotFoundException(
-        `Message with ID ${id} not found for user ${email}`,
-      );
+      throw new NotFoundException(`Message with ID ${id} not found`);
     }
   }
 }

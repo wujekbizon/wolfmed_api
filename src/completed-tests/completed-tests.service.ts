@@ -3,6 +3,7 @@ import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import { completedTests } from './completed-tests.schema';
 import { eq } from 'drizzle-orm';
 import { ExtendedCompletedTest } from 'src/schema';
+import { CompletedTestDto } from './dto/completed-test.dto';
 
 @Injectable()
 export class CompletedTestsService {
@@ -27,6 +28,16 @@ export class CompletedTestsService {
       throw new NotFoundException(`Completed test with ID ${id} not found`);
     }
 
+    return result[0];
+  }
+
+  async createCompletedTest(
+    completedTestDto: CompletedTestDto,
+  ): Promise<ExtendedCompletedTest> {
+    const result = await this.db
+      .insert(completedTests)
+      .values(completedTestDto)
+      .returning();
     return result[0];
   }
 

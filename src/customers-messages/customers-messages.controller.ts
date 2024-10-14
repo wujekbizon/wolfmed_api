@@ -21,9 +21,9 @@ export class CustomersMessagesController {
     return this.customersMessagesService.getAllMessages();
   }
 
-  @Get(':email')
-  async getMessagesByUser(@Param('email') email: string) {
-    return this.customersMessagesService.getMessagesByUser(email);
+  @Get(':id')
+  async getMessagesById(@Param('id') id: string) {
+    return this.customersMessagesService.getMessagesById(id);
   }
 
   @Post()
@@ -31,15 +31,9 @@ export class CustomersMessagesController {
     return this.customersMessagesService.createMessage(createMessageDto);
   }
 
-  @Delete(':email/:id')
+  @Delete(':id')
   @HttpCode(204)
-  async deleteMessageByUser(
-    @Param('email') email: string,
-    @Param('id') id: string,
-  ) {
-    await this.customersMessagesService.deleteMessageByUser(
-      email,
-      parseInt(id, 10),
-    );
+  async deleteMessageById(@Param('id') id: string) {
+    await this.customersMessagesService.deleteMessageById(parseInt(id, 10));
   }
 }

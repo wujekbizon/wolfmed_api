@@ -27,6 +27,10 @@ export class UsersService {
     return result[0];
   }
 
+  async getAllUsers(): Promise<User[]> {
+    return this.db.select().from(users);
+  }
+
   async createUser(createUserDto: CreateUserDto): Promise<NewUser> {
     const existingUser = await this.getUserById(createUserDto.userId).catch(
       () => null,
